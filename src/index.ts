@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express'
 import {videoRoutes} from "./routes/video-routes";
+import bodyParser from "body-parser";
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -17,7 +18,7 @@ const bloggers = [
         "youtubeUrl": "string"
     }
 ]
-
+app.use(bodyParser())
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello world!')
