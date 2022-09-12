@@ -15,7 +15,7 @@ type ErrorMessageObjType = {
     message: string
     field: string
 }
-const neededVideoResolutions = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160']
+const neededVideosResolutions = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160']
 let errorMessageObj: ErrorMessageObjType[] = [] as ErrorMessageObjType[]
 
 
@@ -94,7 +94,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         })
         if (Array.isArray(availableResolutions)) {
             availableResolutions.forEach(resolution => {
-                if (!neededVideoResolutions.includes(resolution)) {
+                if (!neededVideosResolutions.includes(resolution)) {
                     neededResolutionsArray.push(resolution)
                     errorMessageObj.push({
                         field: 'availableResolutions',
@@ -108,7 +108,11 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         // if (typeof availableResolutions === "string") {
         //     errorMessageObj.push({field: 'availableResolutions', message: 'Wrong resolution'})
         // }
-        if (errorMessageObj.length) res.status(400).send(errorMessageObj)
+        if (errorMessageObj.length) {
+            res.status(400).send(errorMessageObj)
+            return
+        }
+
 
         // const timeElapsed = Date.now();
         // const currentTime = new Date(timeElapsed);
@@ -156,7 +160,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
 
         if (Array.isArray(availableResolutions)) {
             availableResolutions.forEach(resolution => {
-                if (!neededVideoResolutions.includes(resolution)) {
+                if (!neededVideosResolutions.includes(resolution)) {
                     neededResolutionsArray.push(resolution)
                     errorMessageObj.push({
                         field: 'availableResolutions',
@@ -179,7 +183,10 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             message: 'publicationDate is not present'
         })
 
-        if (errorMessageObj.length) res.status(400).send(errorMessageObj)
+        if (errorMessageObj.length) {
+            res.status(400).send(errorMessageObj)
+            return
+        }
 
         const updatedVideo = videos.find(video => video.id === id)
         if (!updatedVideo) {
@@ -220,7 +227,10 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             field: 'id',
             message: 'Id is not present or incorrect value'
         })
-        if (errorMessageObj.length) res.status(400).send(errorMessageObj)
+        if (errorMessageObj.length) {
+            res.status(400).send(errorMessageObj)
+            return;
+        }
         for (let i = 0; i < videos.length; i++) {
             if (videos[i].id === id) {
                 videos.splice(i, 1)
