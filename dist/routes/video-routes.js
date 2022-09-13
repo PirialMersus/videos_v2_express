@@ -69,11 +69,11 @@ exports.videoRoutes.get('/', (req, res) => {
     // console.log('availableResolutions', availableResolutions)
     if (title.length > 40)
         errorMessageObj.push({ field: 'title', message: 'Max length 40' });
-    if (!title)
+    if (!title || title === 'null')
         errorMessageObj.push({ field: 'title', message: 'Title is not present' });
     if (author.length > 20)
         errorMessageObj.push({ field: 'author', message: 'Max length 20' });
-    if (!author)
+    if (!author || author === 'null')
         errorMessageObj.push({ field: 'Author', message: 'Author is not present' });
     if (availableResolutions.length < 1 || typeof availableResolutions !== "object")
         errorMessageObj.push({
@@ -138,11 +138,11 @@ exports.videoRoutes.get('/', (req, res) => {
         });
     if (title.length > 40)
         errorMessageObj.push({ field: 'title', message: 'Max length 40' });
-    if (!title)
+    if (!title || title === 'null')
         errorMessageObj.push({ field: 'title', message: 'Title is not present' });
     if (author.length > 20)
         errorMessageObj.push({ field: 'author', message: 'Max length 20' });
-    if (!author)
+    if (!author || author === 'null')
         errorMessageObj.push({ field: 'Author', message: 'Author is not present' });
     if (availableResolutions.length < 1 || typeof availableResolutions !== "object")
         errorMessageObj.push({
@@ -170,7 +170,7 @@ exports.videoRoutes.get('/', (req, res) => {
             field: 'minAgeRestriction',
             message: 'Wrong minAgeRestriction value'
         });
-    if (!publicationDate)
+    if (!publicationDate || publicationDate === 'null')
         errorMessageObj.push({
             field: 'publicationDate',
             message: 'publicationDate is not present'

@@ -85,9 +85,9 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         const availableResolutions: AvailableResolutionsType = req.body.availableResolutions
         // console.log('availableResolutions', availableResolutions)
         if (title.length > 40) errorMessageObj.push({field: 'title', message: 'Max length 40'})
-        if (!title) errorMessageObj.push({field: 'title', message: 'Title is not present'})
+        if (!title || title === 'null') errorMessageObj.push({field: 'title', message: 'Title is not present'})
         if (author.length > 20) errorMessageObj.push({field: 'author', message: 'Max length 20'})
-        if (!author) errorMessageObj.push({field: 'Author', message: 'Author is not present'})
+        if (!author || author === 'null') errorMessageObj.push({field: 'Author', message: 'Author is not present'})
         if (availableResolutions.length < 1 || typeof availableResolutions !== "object") errorMessageObj.push({
             field: 'availableResolutions',
             message: 'Send a resolutions array, please'
@@ -150,9 +150,9 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             message: 'Id is not present or incorrect value'
         })
         if (title.length > 40) errorMessageObj.push({field: 'title', message: 'Max length 40'})
-        if (!title) errorMessageObj.push({field: 'title', message: 'Title is not present'})
+        if (!title || title === 'null') errorMessageObj.push({field: 'title', message: 'Title is not present'})
         if (author.length > 20) errorMessageObj.push({field: 'author', message: 'Max length 20'})
-        if (!author) errorMessageObj.push({field: 'Author', message: 'Author is not present'})
+        if (!author || author === 'null') errorMessageObj.push({field: 'Author', message: 'Author is not present'})
         if (availableResolutions.length < 1 || typeof availableResolutions !== "object") errorMessageObj.push({
             field: 'availableResolutions',
             message: 'Send a resolutions array, please'
@@ -178,7 +178,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             message: 'Wrong minAgeRestriction value'
         })
 
-        if (!publicationDate) errorMessageObj.push({
+        if (!publicationDate || publicationDate === 'null') errorMessageObj.push({
             field: 'publicationDate',
             message: 'publicationDate is not present'
         })
