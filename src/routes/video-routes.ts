@@ -135,7 +135,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             id: +(new Date()),
             title,
             author,
-            canBeDownloaded: canBeDownloaded ? canBeDownloaded : true,
+            canBeDownloaded: canBeDownloaded ? canBeDownloaded : false,
             minAgeRestriction: minAgeRestriction ? minAgeRestriction : null,
             createdAt: today.toISOString(),
             publicationDate: tomorrow.toISOString(),
