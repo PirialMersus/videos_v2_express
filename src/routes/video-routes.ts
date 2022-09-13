@@ -1,4 +1,5 @@
 import {Request, Response, Router} from "express";
+import {log} from "util";
 
 type VideoType = {
     id: number
@@ -107,7 +108,8 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         } else {
             errorMessageObj.push({field: 'availableResolutions', message: 'Wrong resolutions'})
         }
-        if (typeof canBeDownloaded !== "boolean") {
+        console.log('typeof canBeDownloaded', typeof canBeDownloaded)
+        if (canBeDownloaded && typeof canBeDownloaded !== "boolean") {
             errorMessageObj.push({field: 'canBeDownloaded', message: 'Wrong canBeDownloaded value'})
         }
         if (minAgeRestriction > 18 || minAgeRestriction < 1) errorMessageObj.push({

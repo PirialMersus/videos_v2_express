@@ -65,6 +65,8 @@ exports.videoRoutes.get('/', (req, res) => {
     const neededResolutionsArray = [];
     const title = req.body.title;
     const author = req.body.author;
+    const canBeDownloaded = req.body.canBeDownloaded;
+    const minAgeRestriction = req.body.minAgeRestriction;
     const availableResolutions = req.body.availableResolutions;
     // console.log('availableResolutions', availableResolutions)
     if (title.length > 40)
@@ -94,6 +96,15 @@ exports.videoRoutes.get('/', (req, res) => {
     else {
         errorMessageObj.push({ field: 'availableResolutions', message: 'Wrong resolutions' });
     }
+    console.log('typeof canBeDownloaded', typeof canBeDownloaded);
+    if (canBeDownloaded && typeof canBeDownloaded !== "boolean") {
+        errorMessageObj.push({ field: 'canBeDownloaded', message: 'Wrong canBeDownloaded value' });
+    }
+    if (minAgeRestriction > 18 || minAgeRestriction < 1)
+        errorMessageObj.push({
+            field: 'minAgeRestriction',
+            message: 'Wrong minAgeRestriction value'
+        });
     // if (typeof availableResolutions === "string") {
     //     errorMessageObj.push({field: 'availableResolutions', message: 'Wrong resolution'})
     // }
@@ -111,8 +122,8 @@ exports.videoRoutes.get('/', (req, res) => {
         id: +(new Date()),
         title,
         author,
-        canBeDownloaded: true,
-        minAgeRestriction: null,
+        canBeDownloaded: canBeDownloaded ? canBeDownloaded : true,
+        minAgeRestriction: minAgeRestriction ? minAgeRestriction : null,
         createdAt: today.toISOString(),
         publicationDate: tomorrow.toISOString(),
         availableResolutions
