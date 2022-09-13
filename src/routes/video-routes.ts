@@ -90,7 +90,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         const availableResolutions: AvailableResolutionsType = req.body.availableResolutions
         // console.log('availableResolutions', availableResolutions)
         if (title && title.length > 40) errorMessageObj.push({field: 'title', message: 'Max length 40'})
-        if (!title || typeof title !== 'string') errorMessageObj.push({field: 'title', message: 'Title is not present'})
+        if (!title) errorMessageObj.push({field: 'title', message: 'Title is not present'})
         if (author && author.length > 20) errorMessageObj.push({field: 'author', message: 'Max length 20'})
         if (!author || author === 'null') errorMessageObj.push({field: 'Author', message: 'Author is not present'})
         if (availableResolutions && availableResolutions.length < 1 || typeof availableResolutions !== "object") errorMessageObj.push({
@@ -121,7 +121,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         //     errorMessageObj.push({field: 'availableResolutions', message: 'Wrong resolution'})
         // }
         if (errorMessageObj.length) {
-            res.status(400).send(errorMessageObj)
+            res.status(400).send({errorsMessages: errorMessageObj})
             return
         }
 
@@ -162,7 +162,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             message: 'Id is not present or incorrect value'
         })
         if (title && title.length > 40) errorMessageObj.push({field: 'title', message: 'Max length 40'})
-        if (!title || title === 'null') errorMessageObj.push({field: 'title', message: 'Title is not present'})
+        if (!title) errorMessageObj.push({field: 'title', message: 'Title is not present'})
         if (author.length > 20) errorMessageObj.push({field: 'author', message: 'Max length 20'})
         if (!author || author === 'null') errorMessageObj.push({field: 'Author', message: 'Author is not present'})
         if (availableResolutions.length < 1 || typeof availableResolutions !== "object") errorMessageObj.push({
@@ -196,7 +196,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         })
 
         if (errorMessageObj.length) {
-            res.status(400).send(errorMessageObj)
+            res.status(400).send({errorsMessages: errorMessageObj})
             return
         }
 
@@ -245,7 +245,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             message: 'Id is not present or incorrect value'
         })
         if (errorMessageObj.length) {
-            res.status(400).send(errorMessageObj)
+            res.status(400).send({errorsMessages: errorMessageObj})
             return;
         }
         for (let i = 0; i < videos.length; i++) {

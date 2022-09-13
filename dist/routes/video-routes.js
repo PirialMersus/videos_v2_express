@@ -73,7 +73,7 @@ exports.videoRoutes.get('/', (req, res) => {
     // console.log('availableResolutions', availableResolutions)
     if (title && title.length > 40)
         errorMessageObj.push({ field: 'title', message: 'Max length 40' });
-    if (!title || typeof title !== 'string')
+    if (!title)
         errorMessageObj.push({ field: 'title', message: 'Title is not present' });
     if (author && author.length > 20)
         errorMessageObj.push({ field: 'author', message: 'Max length 20' });
@@ -110,7 +110,7 @@ exports.videoRoutes.get('/', (req, res) => {
     //     errorMessageObj.push({field: 'availableResolutions', message: 'Wrong resolution'})
     // }
     if (errorMessageObj.length) {
-        res.status(400).send(errorMessageObj);
+        res.status(400).send({ errorsMessages: errorMessageObj });
         return;
     }
     // const timeElapsed = Date.now();
@@ -150,7 +150,7 @@ exports.videoRoutes.get('/', (req, res) => {
         });
     if (title && title.length > 40)
         errorMessageObj.push({ field: 'title', message: 'Max length 40' });
-    if (!title || title === 'null')
+    if (!title)
         errorMessageObj.push({ field: 'title', message: 'Title is not present' });
     if (author.length > 20)
         errorMessageObj.push({ field: 'author', message: 'Max length 20' });
@@ -188,7 +188,7 @@ exports.videoRoutes.get('/', (req, res) => {
             message: 'publicationDate is not present'
         });
     if (errorMessageObj.length) {
-        res.status(400).send(errorMessageObj);
+        res.status(400).send({ errorsMessages: errorMessageObj });
         return;
     }
     const updatedVideo = exports.videos.find(video => video.id === id);
@@ -241,7 +241,7 @@ exports.videoRoutes.get('/', (req, res) => {
             message: 'Id is not present or incorrect value'
         });
     if (errorMessageObj.length) {
-        res.status(400).send(errorMessageObj);
+        res.status(400).send({ errorsMessages: errorMessageObj });
         return;
     }
     for (let i = 0; i < exports.videos.length; i++) {
