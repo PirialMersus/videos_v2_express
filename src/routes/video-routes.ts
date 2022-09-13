@@ -85,7 +85,7 @@ videoRoutes.get('/', (req: Request, res: Response) => {
         const availableResolutions: AvailableResolutionsType = req.body.availableResolutions
         // console.log('availableResolutions', availableResolutions)
         if (title.length > 40) errorMessageObj.push({field: 'title', message: 'Max length 40'})
-        if (!title || title === 'null') errorMessageObj.push({field: 'title', message: 'Title is not present'})
+        if (!title || typeof title !== 'string') errorMessageObj.push({field: 'title', message: 'Title is not present'})
         if (author.length > 20) errorMessageObj.push({field: 'author', message: 'Max length 20'})
         if (!author || author === 'null') errorMessageObj.push({field: 'Author', message: 'Author is not present'})
         if (availableResolutions.length < 1 || typeof availableResolutions !== "object") errorMessageObj.push({
@@ -193,8 +193,8 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             res.send(404)
         } else {
 
-            if (author) updatedVideo.author = author
-            if (title) updatedVideo.title = title
+            updatedVideo.author = author
+            updatedVideo.title = title
             if (availableResolutions) updatedVideo.availableResolutions = availableResolutions
             if (canBeDownloaded) {
                 updatedVideo.canBeDownloaded = canBeDownloaded
