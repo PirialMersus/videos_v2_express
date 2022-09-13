@@ -64,20 +64,22 @@ exports.videoRoutes.get('/', (req, res) => {
     errorMessageObj = [];
     const neededResolutionsArray = [];
     const title = req.body.title;
+    console.log('title', title);
+    console.log('type of', typeof title);
     const author = req.body.author;
     const canBeDownloaded = req.body.canBeDownloaded;
     const minAgeRestriction = req.body.minAgeRestriction;
     const availableResolutions = req.body.availableResolutions;
     // console.log('availableResolutions', availableResolutions)
-    if (title.length > 40)
+    if (title && title.length > 40)
         errorMessageObj.push({ field: 'title', message: 'Max length 40' });
     if (!title || typeof title !== 'string')
         errorMessageObj.push({ field: 'title', message: 'Title is not present' });
-    if (author.length > 20)
+    if (author && author.length > 20)
         errorMessageObj.push({ field: 'author', message: 'Max length 20' });
     if (!author || author === 'null')
         errorMessageObj.push({ field: 'Author', message: 'Author is not present' });
-    if (availableResolutions.length < 1 || typeof availableResolutions !== "object")
+    if (availableResolutions && availableResolutions.length < 1 || typeof availableResolutions !== "object")
         errorMessageObj.push({
             field: 'availableResolutions',
             message: 'Send a resolutions array, please'
@@ -96,7 +98,6 @@ exports.videoRoutes.get('/', (req, res) => {
     else {
         errorMessageObj.push({ field: 'availableResolutions', message: 'Wrong resolutions' });
     }
-    console.log('typeof canBeDownloaded', typeof canBeDownloaded);
     if (canBeDownloaded && typeof canBeDownloaded !== "boolean") {
         errorMessageObj.push({ field: 'canBeDownloaded', message: 'Wrong canBeDownloaded value' });
     }
@@ -122,7 +123,7 @@ exports.videoRoutes.get('/', (req, res) => {
         id: +(new Date()),
         title,
         author,
-        canBeDownloaded: canBeDownloaded ? canBeDownloaded : true,
+        canBeDownloaded: canBeDownloaded ? canBeDownloaded : false,
         minAgeRestriction: minAgeRestriction ? minAgeRestriction : null,
         createdAt: today.toISOString(),
         publicationDate: tomorrow.toISOString(),
@@ -147,7 +148,7 @@ exports.videoRoutes.get('/', (req, res) => {
             field: 'id',
             message: 'Id is not present or incorrect value'
         });
-    if (title.length > 40)
+    if (title && title.length > 40)
         errorMessageObj.push({ field: 'title', message: 'Max length 40' });
     if (!title || title === 'null')
         errorMessageObj.push({ field: 'title', message: 'Title is not present' });
