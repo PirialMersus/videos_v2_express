@@ -55,18 +55,18 @@ app.use('/videos', video_routes_1.videoRoutes);
 //     }
 //     res.send(404)
 // })
-app.get('/bloggers', (req, res) => {
-    res.send(bloggers);
+app.delete('/testing/all-data', (req, res) => {
+    video_routes_1.videos.length = 0;
+    res.send(204);
 });
-app.get('/bloggers/:id', (req, res) => {
-    const address = bloggers.find(address => address.id === +req.params.id);
-    if (address) {
-        res.send(address);
-    }
-    else {
-        res.send(404);
-    }
-});
+// app.get('/bloggers/:id', (req: Request, res: Response) => {
+//     const address = bloggers.find(address => address.id === +req.params.id);
+//     if (address) {
+//         res.send(address)
+//     } else {
+//         res.send(404)
+//     }
+// })
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

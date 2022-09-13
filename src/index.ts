@@ -1,5 +1,5 @@
 import express, {Request, Response} from 'express'
-import {videoRoutes} from "./routes/video-routes";
+import {videoRoutes, videos} from "./routes/video-routes";
 import bodyParser from "body-parser";
 
 const app = express()
@@ -56,17 +56,18 @@ app.use('/videos', videoRoutes)
 //     }
 //     res.send(404)
 // })
-app.get('/bloggers', (req: Request, res: Response) => {
-    res.send(bloggers)
+app.delete('/testing/all-data', (req: Request, res: Response) => {
+    videos.length = 0
+    res.send(204)
 })
-app.get('/bloggers/:id', (req: Request, res: Response) => {
-    const address = bloggers.find(address => address.id === +req.params.id);
-    if (address) {
-        res.send(address)
-    } else {
-        res.send(404)
-    }
-})
+// app.get('/bloggers/:id', (req: Request, res: Response) => {
+//     const address = bloggers.find(address => address.id === +req.params.id);
+//     if (address) {
+//         res.send(address)
+//     } else {
+//         res.send(404)
+//     }
+// })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

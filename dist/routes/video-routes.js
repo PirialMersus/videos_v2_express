@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.videoRoutes = void 0;
+exports.videoRoutes = exports.videos = void 0;
 const express_1 = require("express");
 const neededVideosResolutions = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160'];
 let errorMessageObj = [];
-let videos = [{
+exports.videos = [{
         "id": 0,
         "title": "zeroVideo",
         "author": "Gena",
@@ -33,14 +33,14 @@ exports.videoRoutes.get('/', (req, res) => {
     //     const searchString = req.query.title.toString();
     //     res.send(videos.filter(video => video.title.indexOf(searchString) > -1))
     // } else {
-    res.send(videos);
+    res.send(exports.videos);
     // }
 })
     .get('/:id?', (req, res) => {
     errorMessageObj = [];
     const id = +req.params.id;
     if (id || id === 0) {
-        const neededVideo = videos.find(video => video.id === id);
+        const neededVideo = exports.videos.find(video => video.id === id);
         if (neededVideo) {
             console.log('neededVideo', neededVideo);
             res.send(neededVideo);
@@ -50,7 +50,7 @@ exports.videoRoutes.get('/', (req, res) => {
         }
     }
     else {
-        res.send(videos);
+        res.send(exports.videos);
     }
 })
     // {
@@ -117,7 +117,7 @@ exports.videoRoutes.get('/', (req, res) => {
         publicationDate: tomorrow.toISOString(),
         availableResolutions
     };
-    videos.push(newVideo);
+    exports.videos.push(newVideo);
     res.status(201).send(newVideo);
 })
     .put('/:id?', (req, res) => {
@@ -179,7 +179,7 @@ exports.videoRoutes.get('/', (req, res) => {
         res.status(400).send(errorMessageObj);
         return;
     }
-    const updatedVideo = videos.find(video => video.id === id);
+    const updatedVideo = exports.videos.find(video => video.id === id);
     if (!updatedVideo) {
         res.send(404);
     }
@@ -218,10 +218,10 @@ exports.videoRoutes.get('/', (req, res) => {
         res.send(204);
     }
 })
-    .delete('/testing/all-data', (req, res) => {
-    videos = [];
-    res.send(204);
-})
+    // .delete('/testing/all-data', (req: Request, res: Response) => {
+    //     videos.length = 0
+    //     res.send(204)
+    // })
     .delete('/:id', (req, res) => {
     errorMessageObj = [];
     const id = +req.params.id;
@@ -234,9 +234,9 @@ exports.videoRoutes.get('/', (req, res) => {
         res.status(400).send(errorMessageObj);
         return;
     }
-    for (let i = 0; i < videos.length; i++) {
-        if (videos[i].id === id) {
-            videos.splice(i, 1);
+    for (let i = 0; i < exports.videos.length; i++) {
+        if (exports.videos[i].id === id) {
+            exports.videos.splice(i, 1);
             res.send(204);
             return;
         }
