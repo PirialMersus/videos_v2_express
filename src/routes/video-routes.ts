@@ -19,7 +19,7 @@ const neededVideosResolutions = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080'
 let errorMessageObj: ErrorMessageObjType[] = [] as ErrorMessageObjType[]
 
 
-const videos: VideoType[] = [{
+let videos: VideoType[] = [{
     "id": 0,
     "title": "zeroVideo",
     "author": "Gena",
@@ -219,6 +219,11 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             console.log('updatedVideo', updatedVideo)
             res.send(204)
         }
+    })
+
+    .delete('/testing/all-data', (req: Request, res: Response) => {
+        videos = []
+        res.send(204)
     })
     .delete('/:id', (req: Request, res: Response) => {
         errorMessageObj = []

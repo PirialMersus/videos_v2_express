@@ -4,7 +4,7 @@ exports.videoRoutes = void 0;
 const express_1 = require("express");
 const neededVideosResolutions = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160'];
 let errorMessageObj = [];
-const videos = [{
+let videos = [{
         "id": 0,
         "title": "zeroVideo",
         "author": "Gena",
@@ -217,6 +217,10 @@ exports.videoRoutes.get('/', (req, res) => {
         console.log('updatedVideo', updatedVideo);
         res.send(204);
     }
+})
+    .delete('/testing/all-data', (req, res) => {
+    videos = [];
+    res.send(204);
 })
     .delete('/:id', (req, res) => {
     errorMessageObj = [];
