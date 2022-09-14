@@ -3,7 +3,7 @@ import {Request, Response, Router} from "express";
 function isIsoDate(str) {
     if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
     const d = new Date(str);
-    return d instanceof Date && !isNaN(d) && d.toISOString() === str; // valid date
+    return d.toISOString()===str; // valid date
 }
 
 type VideoType = {
@@ -194,8 +194,6 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             field: 'minAgeRestriction',
             message: 'Wrong minAgeRestriction value'
         })
-        console.log('publicationDate', publicationDate)
-        console.log('isIsoDate(publicationDate)', isIsoDate(publicationDate))
         if (!publicationDate || !isIsoDate(publicationDate)) errorMessageObj.push({
             field: 'publicationDate',
             message: 'publicationDate is not present'

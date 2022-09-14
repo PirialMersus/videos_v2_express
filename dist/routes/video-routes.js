@@ -6,7 +6,7 @@ function isIsoDate(str) {
     if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str))
         return false;
     const d = new Date(str);
-    return d instanceof Date && !isNaN(d) && d.toISOString() === str; // valid date
+    return d.toISOString() === str; // valid date
 }
 const neededVideosResolutions = ['P144', 'P240', 'P360', 'P480', 'P720', 'P1080', 'P1440', 'P2160'];
 let errorMessageObj = [];
@@ -188,8 +188,6 @@ exports.videoRoutes.get('/', (req, res) => {
             field: 'minAgeRestriction',
             message: 'Wrong minAgeRestriction value'
         });
-    console.log('publicationDate', publicationDate);
-    console.log('isIsoDate(publicationDate)', isIsoDate(publicationDate));
     if (!publicationDate || !isIsoDate(publicationDate))
         errorMessageObj.push({
             field: 'publicationDate',
