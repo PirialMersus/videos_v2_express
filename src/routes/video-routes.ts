@@ -194,10 +194,12 @@ videoRoutes.get('/', (req: Request, res: Response) => {
             field: 'minAgeRestriction',
             message: 'Wrong minAgeRestriction value'
         })
-        if (!publicationDate || !isIsoDate(publicationDate)) errorMessageObj.push({
-            field: 'publicationDate',
-            message: 'publicationDate is not present'
-        })
+        if (!publicationDate || !isIsoDate(publicationDate)) {
+            errorMessageObj.push({
+                field: 'publicationDate',
+                message: 'publicationDate is not present'
+            })
+        }
 
         if (errorMessageObj.length) {
             res.status(400).send({errorsMessages: errorMessageObj})
