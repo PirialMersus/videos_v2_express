@@ -188,10 +188,17 @@ exports.videoRoutes.get('/', (req, res) => {
             field: 'minAgeRestriction',
             message: 'Wrong minAgeRestriction value'
         });
+    console.log('!isIsoDate(publicationDate)', !isIsoDate(publicationDate));
     if (!publicationDate || !isIsoDate(publicationDate)) {
         errorMessageObj.push({
             field: 'publicationDate',
             message: 'publicationDate is not present'
+        });
+    }
+    else {
+        errorMessageObj.push({
+            field: '123',
+            message: String(!isIsoDate(publicationDate))
         });
     }
     if (errorMessageObj.length) {
